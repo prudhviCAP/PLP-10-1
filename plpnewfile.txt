@@ -1,0 +1,217 @@
+SQL> create table user_role(user_name varchar2(20),password varchar2(20),role_code varchar2(20),primary key(user_name));
+
+Table created.
+
+SQL> create table accounts(account_number number(10),insured_name varchar(30),insured_street varchar2(40),insured_city varchar2(15),insured_state varchar2(15),insured_zip number(5),business_segment varchar2(30),user_name varchar2(20),agent_name varchar2(20),primary key(account_number),foreign key(user_name) references user_role(user_name));
+
+Table created.
+
+
+SQL> create table policy(policy_number number(10),policy_premium number(8,2),account_number number(10),primary key(policy_number),foreign key(account_number) references accounts(account_number));
+
+Table created.
+
+SQL> create table policy_details(policy_number number(10),question_id varchar2(15),answer varchar2(30),foreign key(policy_number) references policy(policy_number));
+
+Table created.
+
+SQL> create table business_segment(bus_seg_id varchar2(10),bus_seg_name varchar2(20),primary key(bus_seg_id));
+
+Table created.
+
+SQL> create table policy_questions(pol_ques_id varchar2(10),bus_seg_id varchar2(10),pol_ques_desc varchar2(80),pol_ques_ans1 varchar2(30),pol_ques_ans1_weightage numeric(5),primary key(pol_ques_id),foreign key(bus_seg_id) references business_segment(bus_seg_id));
+
+Table created.
+
+
+SQL> create table policy_questions(pol_ques_id varchar2(10),bus_seg_id varchar2(10),pol_ques_desc varchar2(80),pol_ques_ans1 varchar2(30),pol_ques_ans1_weightage numeric(5),pol_ques_ans2 varchar2(30),pol_ques_ans2_weightage number(5),pol_ques_ans3 varchar2(30),pol_ques_ans3_weightage number(5),primary key(pol_ques_id),foreign key(bus_seg_id) references business_segment(bus_seg_id));
+
+Table created.
+
+
+
+
+
+inserted values
+SQL> insert into business_segment values(1,'Business_Auto');
+
+1 row created.
+
+SQL> insert into business_segment values(2,'Restaurant');
+
+1 row created.
+
+SQL> insert into business_segment values(3,'Apartment');
+
+1 row created.
+
+SQL> insert into business_segment values(4,'General_Merchant');
+
+1 row created.
+
+QL> insert into policy_questions values(1001,1,'Vehicle_Type','Light',200,'Heavy',400,'Truck',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(1002,1,'Vehicle_Model_Year','Less_than_2000',200,'2001_to_2010',400,'More_than_2010',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(1003,1,'Vehicle_Model','High_Segment',200,'Mid_Segment',400,'Economy',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(1004,1,'Daily_Commute_Distance','Less_than_21',200,'21_to_50',400,'Greater_than_50',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(1005,1,'Service_Center','Authorized',200,'Non_Authorized',400,null,0);
+
+1 row created.
+
+SQL> insert into policy_questions values(1006,1,'Collision_Coverage_Limit','10000_to_30000',200,'30001_to_30000',400,'50001_to_10000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(1007,1,'Bodily_Injuiry_Limit','10000_to_30000',200,'30001_to_90000',400,'50001_to_10000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(1008,1,'Un_Insured_Motorlist','10000_to_30000',200,'30001_to_90000',400,'50001_to_10000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(2001,2,'Restaurant_Type','Only_Dining',200,'Dining_with_Bar',400,'Dining_Bar_and_Entertainment',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(2002,2,'Restaurant_SQ_ft','Less_than_1500_sq_ft',200,'from_1500_to_5000_sq_ft',400,'more_than_5000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(2003,2,'Number_of_Sprinklers','up_to_20',200,'21_to_40',400,'more_than_40',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(2004,2,'Number_of_Cylinders_in_Kitchen','up_to_5',200,'from_6_to_15',400,'more_than_15',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(2005,2,'Fine_Arts','5000_to_15000',200,'15000_to_30000',400,'more_than_30000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(2006,2,'Property_Damage','upto_500000',200,'from_500000_to_1500000',400,'more_than_1500000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(2007,2,'Equipment_Breakdown','upto_50000',200,'from_50000_to_200000',400,'more_than_200000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(2008,2,'Liability_Coverage','10000_to_15000',200,'15001_to_30000',400,'more_than_30000',600);
+
+1 row created.
+
+
+SQL> insert into policy_questions values(3001,3,'Apartment_SQ_ft','upto_1500_sq_ft',200,'upto_1500_to_5000_sq_ft',400,'more_than_5000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(3002,3,'Number_of_Sprinklers','upto_5',200,'from_6_to_10',400,'more_than_10',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(3003,3,'Build_Year','Before_2000',200,'2000_to_2010',400,'after_2010',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(3004,3,'Property_Damage','upto_500000',200,'500001_to_1000000',400,'more_than_1000000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(3005,3,'Bodily_Injury_Limit','50000_to_100000',200,'100001_to_30000',400,'300001_to_500000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(3006,3,'Number_of_Floor','less_than_10',200,'10_to_30',400,'More_than_30',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(3007,3,'Number_of_Fire_Exists','1',200,'2_to_3',400,'More_than_3',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(3008,3,'Asset_Theft_Limit','upto_50000',200,'50000_to_100000',400,'100001_to_200000',600);
+
+1 row created.
+
+SQL> insert into user_role values('harshitha','teamleader','admin');
+
+1 row created.
+
+SQL> insert into user_role values('ramana','developer','user');
+
+1 row created.
+
+SQL> insert into user_role values('balaji','client','agent');
+
+1 row created.
+
+SQL> commit;
+
+SQL> alter table accounts modify insured_zip number(6);
+
+Table altered.
+
+SQL> create sequence account_number_seq start with 10000000;
+
+Sequence created.
+
+SQL> create sequence policy_id_seq start with 100000;
+
+Sequence created.
+
+SQL> create sequence policy_number_seq start with 10;
+
+Sequence created.
+
+SQL> insert into policy_questions values(4001,4,'Business_Type','General_Store',200,'Hardware',400,'Clothing',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(4002,4,'Asset_Value','less_than_1000000',200,'1000001_to_2500000',400,'more_than_2500001',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(4003,4,'Inflammable_Objects','Yes',200,'No',400,null,0);
+
+1 row created.
+
+SQL> insert into policy_questions values(4004,4,'Property_Size','Less_than_5000_sq_ft',200,'5000_to_10000',400,'more_than_10000_sq_ft',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(4005,4,'Property_Damage','upto_500000',200,'500000_to_1000000',400,'1000000_to_1500000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(4006,4,'Bodily_Injury','10000_to_30000',200,'30001_to_50000',400,'50001_to_10000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(4007,4,'Asset_Theft_Limit','upto_50000',200,'30000_to_100000',400,'100001_to_200000',600);
+
+1 row created.
+
+SQL> insert into policy_questions values(4008,4,'Liability_Coverage','10000_30000',200,'10000_to_30000',400,'10000_to_30000',600);
+
+1 row created.
+
+
+
+
+
+
+
+
